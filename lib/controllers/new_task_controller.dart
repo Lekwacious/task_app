@@ -8,20 +8,21 @@ class NewTaskController extends GetxController{
 
   RxList tasks = [].obs;
 
-  final taskController = TextEditingController();
+  late  TextEditingController newTaskController = TextEditingController();
   var taskError = "".obs;
-  clearEmailError(val) => taskError.value = "";
+  clearTaskError(val) => taskError.value = "";
+  clearTaskValue(val) => newTaskController.text = "";
   var isLoading = false.obs;
 
 
   validateTask(BuildContext context) {
 
-   if (GetUtils.isLengthLessThan(taskController.text.trim(), 1)) {
+   if (GetUtils.isLengthLessThan(newTaskController.text.trim(), 1)) {
      taskError.value = "Please enter some text";
 
 
     }else {
-     tasks.add(taskController.text);
+     tasks.add(newTaskController.text);
      print(tasks[0]);
      Navigator.push(
          context,

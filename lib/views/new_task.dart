@@ -71,10 +71,12 @@ class NewTask extends StatelessWidget {
                         //labelText: 'johndoe@example.com',
                         // hintText: 'johndoe@example.com',
                         textInputAction: TextInputAction.next,
-                        onChange: controller.clearEmailError,
+                        onChange: controller.clearTaskError,
                         textInputType: TextInputType.text,
-                        controller: controller.taskController,
-                        validator: (String) {},
+                        controller: controller.newTaskController,
+                        validator: (String) {
+                          controller.clearTaskValue;
+                        },
                       ),
 
 
@@ -88,6 +90,8 @@ class NewTask extends StatelessWidget {
                         isLoading: controller.isLoading.value,
                         onTap: () {
                           controller.validateTask(context);
+                          controller.newTaskController.clear();
+
 
                         },
                         color: appBlueColor,

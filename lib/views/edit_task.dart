@@ -12,11 +12,16 @@ import '../controllers/home_screen_controller.dart';
 import '../controllers/new_task_controller.dart';
 
 class EditTask extends StatelessWidget {
+  int index;
+  var value;
+  EditTask(this.index, this.value);
+
   var controller = Get.put(EditTaskController());
 
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appBlueColor,
@@ -69,12 +74,14 @@ class EditTask extends StatelessWidget {
                             : controller.taskError.value,
                         textCapitalization: TextCapitalization.none,
                         //labelText: 'johndoe@example.com',
-                        hintText: 'johndoe@example.com',
+                        hintText:    value,
                         textInputAction: TextInputAction.next,
-                        onChange: controller.clearEmailError,
+                        onChange: controller.clearTaskError,
                         textInputType: TextInputType.text,
                         controller: controller.taskController,
-                        validator: (String) {},
+                        validator: (String) {
+                          controller.clearTaskError;
+                        },
                       ),
 
 
@@ -86,7 +93,7 @@ class EditTask extends StatelessWidget {
                         text: "Done",
                         isLoading: controller.isLoading.value,
                         onTap: () {
-                          controller.validateTask(context);
+                          controller.validateTask(context, index);
                         },
                         color: appBlueColor,
                         textColor: Colors.white,
