@@ -49,53 +49,56 @@ class NewTask extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: Container(
-          // color: Colors.white,
-          child: ScrollConfiguration(
-              behavior: RemoveScrollBubbleBehavior(),
-              child: Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-                child: ListView(
-                  children: [
-                    const SizedBox(
-                      height: 72,
-                    ),
-                    FormTextField(
-                      headerText: "Task name",
-                      errortxt: controller.taskError.value.isEmpty
-                          ? null
-                          : controller.taskError.value,
-                      textCapitalization: TextCapitalization.none,
-                      //labelText: 'johndoe@example.com',
-                      // hintText: 'johndoe@example.com',
-                      textInputAction: TextInputAction.next,
-                      onChange: controller.clearEmailError,
-                      textInputType: TextInputType.text,
-                      controller: controller.taskController,
-                      validator: (String) {},
-                    ),
+        child: Obx(
+            ()=>Container(
+            // color: Colors.white,
+            child: ScrollConfiguration(
+                behavior: RemoveScrollBubbleBehavior(),
+                child: Padding(
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+                  child: ListView(
+                    children: [
+                      const SizedBox(
+                        height: 72,
+                      ),
+                      FormTextField(
+                        headerText: "Task name",
+                        errortxt: controller.taskError.value.isEmpty
+                            ? null
+                            : controller.taskError.value,
+                        textCapitalization: TextCapitalization.none,
+                        //labelText: 'johndoe@example.com',
+                        // hintText: 'johndoe@example.com',
+                        textInputAction: TextInputAction.next,
+                        onChange: controller.clearEmailError,
+                        textInputType: TextInputType.text,
+                        controller: controller.taskController,
+                        validator: (String) {},
+                      ),
 
 
-                    const SizedBox(
-                      height: 362,
-                    ),
+                      const SizedBox(
+                        height: 362,
 
-                    CustomButton(
-                      text: "Done",
-                      isLoading: controller.isLoading.value,
-                      onTap: () {
-                        validateTask(context)
+                      ),
 
-                      },
-                      color: appBlueColor,
-                      textColor: Colors.white,
-                      loadingColor: Colors.white,
-                    ),
+                      CustomButton(
+                        text: "Done",
+                        isLoading: controller.isLoading.value,
+                        onTap: () {
+                          controller.validateTask(context);
 
-                  ],
-                ),
-              )),
+                        },
+                        color: appBlueColor,
+                        textColor: Colors.white,
+                        loadingColor: Colors.white,
+                      ),
+
+                    ],
+                  ),
+                )),
+          ),
         ),
       ),
     );
