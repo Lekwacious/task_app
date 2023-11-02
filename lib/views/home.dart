@@ -16,9 +16,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Obx(()=>
-           Container(
-            color: Colors.white,
+        child: Obx(
+          () => Container(
+            // color: Colors.white,
             child: ScrollConfiguration(
                 behavior: RemoveScrollBubbleBehavior(),
                 child: ListView(
@@ -67,49 +67,80 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      color: yellowColor,
-                      height: 116,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Image.asset("assets/pngs/cup.png"),
-                            Text.rich(
-                              TextSpan(
+                    Stack(
+                      children: [
+                        Material(
+                          elevation: 5,
+                          child: Container(
+                            color: yellowColor,
+                            height: 116,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  TextSpan(
-                                    text: 'Go Pro (No Ads)? \n',
-                                    style: GoogleFonts.roboto(
-                                      textStyle: const TextStyle(
-                                        fontSize: 18,
-                                        color: appDarkBlueColor,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
+                                  Image.asset("assets/pngs/cup.png"),
+                                  SizedBox(
+                                    width: 20,
                                   ),
-                                  TextSpan(
-                                    text: "No fuss, no ads, for only \$1 a month",
-                                    style: GoogleFonts.roboto(
-                                      textStyle: const TextStyle(
-                                        fontSize: 12,
-                                        color: appLightBlueColor,
-                                        fontWeight: FontWeight.w400,
-                                      ),
+                                  Text.rich(
+                                    TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: 'Go Pro (No Ads)? \n',
+                                          style: GoogleFonts.roboto(
+                                            textStyle: const TextStyle(
+                                              fontSize: 18,
+                                              color: appDarkBlueColor,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text:
+                                              "No fuss, no ads, for only \$1 a month",
+                                          style: GoogleFonts.roboto(
+                                            textStyle: const TextStyle(
+                                              fontSize: 12,
+                                              color: appLightBlueColor,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
+                        Positioned(
+                          right: 23,
+                          bottom: 45,
+                          child: Container(
+                            width: 66.11,
+                            height: 71,
+                            color: appDarkBlueColor,
+                            child: Center(
+                                child: Text(
+                              "\$1",
+                              style: GoogleFonts.roboto(
+                                textStyle: const TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  fontSize: 18,
+                                  color: yellowColor,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            )),
+                          ),
+                        ),
+                      ],
                     ),
-
                     ListView.builder(
-                      shrinkWrap: true,
+                        shrinkWrap: true,
                         itemCount: controller.tasks.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
@@ -119,29 +150,65 @@ class HomeScreen extends StatelessWidget {
                               elevation: 5,
                               child: Container(
                                 height: 91,
+                                color: Colors.white,
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Checkbox(
-
                                       shape: const CircleBorder(),
-                                      value: true,
+                                      value: controller.ischeck.value,
                                       onChanged: (bool? newValue) {
+                                        controller.ischeck == true;
                                         // setState(() {
                                         //   checkBoxValue = newValue!;
                                         // });
                                       },
                                       activeColor: Colors.green,
                                     ),
-                                    Text(controller.tasks[index]),
+                                    Text(controller.tasks[index],
+                                      style: GoogleFonts.roboto(
+                                        textStyle: const TextStyle(
+                                          fontSize: 16,
+                                          color: appDarkBlueColor,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
                                     ElevatedButton(
                                         onPressed: () {
-                                          Navigator.push(context,
-                                              MaterialPageRoute(builder: (BuildContext context) => EditTask(index, controller.tasks[index])));
-
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          EditTask(
+                                                              index,
+                                                              controller.tasks[
+                                                                  index])));
+                                          controller.ischeck == true;
                                         },
+                                        style: ElevatedButton.styleFrom(
+                                            side: const BorderSide(
+                                              width: 1.0,
+                                              color: appDarkBlueColor,
+                                            ),
+                                            primary: Colors.white,
+                                            // padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                                            textStyle: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.bold)),
                                         child: Container(
-                                          child: Text("Edit"),
+                                          child: Text(
+                                            "Edit",
+                                            style: GoogleFonts.roboto(
+                                              textStyle: const TextStyle(
+                                                fontSize: 16,
+                                                color: appDarkBlueColor,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
                                         ))
                                   ],
                                 ),
@@ -149,8 +216,6 @@ class HomeScreen extends StatelessWidget {
                             ),
                           );
                         }),
-
-
                   ],
                 )),
           ),

@@ -8,6 +8,8 @@ class NewTaskController extends GetxController{
 
   RxList tasks = [].obs;
 
+  var ischeck = false.obs;
+
   late  TextEditingController newTaskController = TextEditingController();
   var taskError = "".obs;
   clearTaskError(val) => taskError.value = "";
